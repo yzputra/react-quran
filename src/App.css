@@ -1,0 +1,313 @@
+:root {
+  /* COLORS */
+  --light: #f3f0ff;
+  --lighter: #ffffff;
+  --dark: #d0bfff;
+  --darken: #524578;
+  --accent: #5f3dc4;
+
+  /* TEXT SIZE */
+  --text-sm: 0.9rem;
+  --text-bs: 1rem;
+  --text-md: 1.2rem;
+  --text-lg: 1.5rem;
+  --text-xl: 2rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block: 1.5rem;
+  color: var(--accent);
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+
+/* Utils */
+.flex-sb {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex {
+  display: flex;
+}
+
+.text-xl {
+  font-size: var(--text-xl);
+}
+
+.text-lg {
+  font-size: var(--text-lg);
+}
+
+.bg-purple {
+  background: var(--dark);
+}
+
+.bg-purple p {
+  font-size: var(--text-sm);
+}
+
+/* Component class */
+
+
+.home {
+  background: var(--light);
+  color: var(--darken);
+}
+
+.brand {
+  font-size: var(--text-md);
+  font-weight: bold;
+}
+
+.c-header {
+  padding: 1rem;
+}
+
+.test {
+  border-bottom: 1px solid var(--accent);
+}
+
+.content {
+  padding: 1rem;
+  border-bottom: 1px solid var(--dark);
+}
+
+.c-footer {
+  padding: 1rem;
+}
+
+.alert-info {
+  padding: 1rem;
+  border-radius: 7px;
+}
+
+.btn {
+  border-radius: 5px;
+  padding: .5rem 1rem;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--light);
+}
+
+.c-surah-item {
+  border-bottom: 1px solid var(--dark);
+  padding-block: 10px;
+  color: var(--darken);
+  gap: 1rem;
+}
+
+.c-surah-item p {
+  font-size: 0.8rem;
+}
+
+.surah-start {
+  padding-block: 7px;
+}
+
+.surah-name span {
+  font-size: var(--text-lg);
+  font-weight: normal;
+  display: block;
+  margin-bottom: -1rem;
+}
+
+.surah-end {
+  margin-left: auto;
+}
+
+.surah-arabic {
+  font-weight: bold;
+  font-size: var(--text-lg);
+}
+
+.surah-mid h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.surah-num {
+  background: var(--accent);
+  color: var(--light);
+  padding-inline: 8px;
+  padding-block: 5px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.search {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border:1px solid var(--dark);
+  border-radius: 7px;
+}
+
+.select {
+  background: var(--lighter);
+  border: 1px solid var(--dark);
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.c-breadcrumb li {
+  display: inline-block;
+}
+
+.c-breadcrumb li+li:before {
+  content: "/";
+  padding-inline: 5px;
+}
+
+.c-ayah-list {
+  width: 95%;
+  margin-left: auto;
+}
+
+.c-ayah-item {
+  text-align: right;
+  border: none;
+}
+
+.ayah-outer {
+  display: flex;
+}
+
+.ayah-arabic {
+  font-size: var(--text-xl);
+  margin-left: auto;
+  width: 100%;
+}
+
+.ayah-trans {
+  text-align: left;
+  margin-block: 1.5rem;
+  padding-block: 5px;
+  padding-inline: 0;
+  border-radius: 3px;
+  font-size: var(--text-sm);
+}
+
+.ayah-menu {
+  align-content: end;
+}
+
+.c-sheet {
+  background: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  opacity: 0;
+  transition: opacity  .4s ease-out;
+  visibility: hidden;
+}
+
+.active {
+  visibility: visible;
+  opacity: 100%;
+}
+
+.sheet-close {
+  margin: 7px auto;
+  padding: 2px;
+  background: var(--dark);
+  width: 25%;
+  display: block;
+}
+
+.sheet-list {
+  background: var(--light);
+  position: absolute;
+  bottom: 0;
+  border-radius: 7px 7px 0 0;
+  padding-inline: 8px;
+  width: inherit;
+}
+
+.c-sheet span:not(span:first-child) {
+  display: block;
+  padding: 15px;
+  border-bottom: 1px solid var(--dark);
+}
+
