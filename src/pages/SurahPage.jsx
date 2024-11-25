@@ -1,55 +1,52 @@
 import { useState, useRef } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
-import AyahListings from '../components/AyahListings';
+import AyahListing from '../components/AyahListing';
 import BottomSheet from '../components/BottomSheet';
-import Select from '../components/Select';
 
 const SurahPage = () => {
   const { data } = useLoaderData();
+
+  const [isActive, setIsActive] = useState(false);
+  const [isTafsir, setIsTafsir] = useState(false);
+  const [isTranslate, setIsTranslate] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(0);
+  const [ayahId, setAyahId] = useState(null);
+
   const listRef = useRef(null);
-
-  const [selectedOption, setSelectedOption] = useState(1);
-
 
   const scrollToIndex = (id) => {
     const listNode = listRef.current;
-
-    const sectionNode = listNode.querySelectorAll('section')[id-1];
-    sectionNode.scrollIntoView({
+    const section = listNode.querySelectorAll('section')[id];
+    section.scrollIntoView({
       behavior: 'smooth',
     });
 
     setSelectedOption(id);
   }
 
-
-  const [isActive, setIsActive] = useState('');
-  const [isTafsir, setIsTafsir] = useState(false);
-  const [isTranslate, setIsTranslate] = useState(false);
-  const [ayahId, setAyahId] = useState(null);
-
   const handleGetId = (id) => setAyahId(id);
 
-  const handleShow = () => setIsActive('active');
-
-  const handleClose = () => setIsActive('');
+  const handleSheet = () => setIsActive(!isActive);
 
   const handleTranslate = () => {
     setIsTranslate(!isTranslate);
-    setIsActive('');
+    setIsActive(false);
   }
 
   const handleTafsir = () => {
     setIsTafsir(!isTafsir);
-    setIsActive('');
+    setIsActive(false);
   }
 
   return (
     <main>
       <article>
         <header className="c-header bg-purple test">
-          <h1 className="surah-name"><span>Surah</span>{data.name.transliteration.id}</h1>
+          <h1 className="surah-name">
+            <span>Surah</span>
+            {data.name.transliteration.id}
+          </h1>
           <div className="flex c-surah-item">
             <div className="surah-start">
               <p>
@@ -69,21 +66,36 @@ const SurahPage = () => {
             <li><Link to="/">Beranda</Link></li>
             <li>Surah</li>
           </ul>
-          <Select 
-            surah={data}
-            value={selectedOption}
-            onScrollToIndex={scrollToIndex}
-          />
+          <div className="c-select">
+            <label>
+              Ayat
+              <select 
+                value={selectedOption}
+                onChange={(e) => scrollToIndex(e.target.value)}
+                className="select"
+              >
+                { data.verses.map((ayah, id) => (
+                  <option key={id} value={id}>
+                    {ayah.number.inSurah}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
 
         { !isTafsir ? (
-          <AyahListings
-            ref={listRef}
-            surah={data}
-            isTranslate={isTranslate}
-            getId={handleGetId}
-            onShow={handleShow}
-          />
+          <div className="c-ayah-list" ref={listRef}>
+            { data.verses.map((ayah, id) => (
+              <AyahListing 
+                key={id}
+                ayah={ayah} 
+                isTranslate={isTranslate}
+                onGetId={handleGetId}
+                onShowSheet={handleSheet}
+              />
+            )) }
+          </div>
 
         ) : (
           <div className="c-ayah-tafsir">
@@ -95,17 +107,16 @@ const SurahPage = () => {
               <p>{data.verses[ayahId].tafsir.id.short}</p>
             </section>
           </div>
-        ) }
-
-        <BottomSheet 
-          isActive={isActive} 
-          isTranslate={isTranslate}
-          onToggleTranslate={handleTranslate}
-          onToggleTafsir={handleTafsir}
-          onClose={handleClose}
-        />
-
+        )}
       </article>
+
+      <BottomSheet 
+        isActive={isActive} 
+        isTranslate={isTranslate}
+        onToggleTranslate={handleTranslate}
+        onToggleTafsir={handleTafsir}
+        onCloseSheet={handleSheet}
+      />
     </main>
   )
 }

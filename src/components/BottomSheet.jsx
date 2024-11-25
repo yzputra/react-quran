@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import { 
   IoBookmarkOutline, 
   IoBookOutline,
@@ -13,12 +11,12 @@ const style = {
   margin: '0 15px -5px 0',
 }
 
-const BottomSheet = ({ isActive, isTranslate, onToggleTranslate, onToggleTafsir, onClose }) => {
+const BottomSheet = ({ isActive, isTranslate, onToggleTranslate, onToggleTafsir, onCloseSheet }) => {
   return (
-    <div className={`c-sheet ${isActive}`}>
+    <div className={`c-sheet ${isActive ? 'active' : ''}`}>
       <div className="sheet-list">
         <span 
-          onClick={onClose}
+          onClick={onCloseSheet}
           className="sheet-close">
         </span>
         <span>

@@ -4,10 +4,12 @@ const style = {
   fontSize: '1.5rem',
 }
 
-const AyahListing = ({ ayah, isTranslate, getId, onShow}) => {
+const AyahListing = ({ ayah, isTranslate, onGetId, onShowSheet}) => {
+  const ayahId = ayah.number.inSurah -1;
+
   const handleClick = () => {
-    getId(ayah.number.inSurah-1)
-    onShow()
+    onGetId(ayahId)
+    onShowSheet()
   }
 
   return (
