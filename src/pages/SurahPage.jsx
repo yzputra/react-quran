@@ -3,40 +3,54 @@ import { Link, useLoaderData } from 'react-router-dom';
 
 import AyahListing from '../components/AyahListing';
 import BottomSheet from '../components/BottomSheet';
+import AudioPlayer from '../components/AudioPlayer';
 
 const SurahPage = () => {
   const { data } = useLoaderData();
 
-  const [isActive, setIsActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isTafsir, setIsTafsir] = useState(false);
   const [isTranslate, setIsTranslate] = useState(false);
+  const [audioStatus, setAudioStatus] = useState(false);
   const [selectedOption, setSelectedOption] = useState(0);
-  const [ayahId, setAyahId] = useState(null);
+  const [ayahId, setAyahId] = useState(0);
 
   const listRef = useRef(null);
 
   const scrollToIndex = (id) => {
-    const listNode = listRef.current;
-    const section = listNode.querySelectorAll('section')[id];
-    section.scrollIntoView({
-      behavior: 'smooth',
-    });
+    setTimeout(() => {
+      const listNode = listRef.current;
+      const section = listNode.querySelectorAll('section')[id];
+      section.scrollIntoView({ behavior: 'smooth' });
+    }, 0);
 
     setSelectedOption(id);
   }
 
   const handleGetId = (id) => setAyahId(id);
 
-  const handleSheet = () => setIsActive(!isActive);
+  const handleSheet = () => setIsOpen(!isOpen);
 
   const handleTranslate = () => {
     setIsTranslate(!isTranslate);
-    setIsActive(false);
+    setIsOpen(false);
   }
 
   const handleTafsir = () => {
-    setIsTafsir(!isTafsir);
-    setIsActive(false);
+    if (isTafsir) {
+      setIsTafsir(false);
+      scrollToIndex(ayahId);
+    } else {
+      setIsTafsir(true);
+      window.scrollTo(50, 100);
+    }
+
+    setIsOpen(false);
+  }
+
+  const handleAudioStatus = (value) => {
+    setAudioStatus(value)
+    setIsOpen(false);
   }
 
   return (
@@ -110,13 +124,24 @@ const SurahPage = () => {
         )}
       </article>
 
+      { audioStatus && 
+        <AudioPlayer 
+          surah={data}
+          ayahId={ayahId}
+          audioStatus={audioStatus}
+          onToggleAudioStatus={handleAudioStatus}
+        />
+      }
+
       <BottomSheet 
-        isActive={isActive} 
+        isOpen={isOpen} 
         isTranslate={isTranslate}
         onToggleTranslate={handleTranslate}
         onToggleTafsir={handleTafsir}
+        onToggleAudioStatus={handleAudioStatus} 
         onCloseSheet={handleSheet}
       />
+
     </main>
   )
 }

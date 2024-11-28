@@ -11,9 +11,9 @@ const style = {
   margin: '0 15px -5px 0',
 }
 
-const BottomSheet = ({ isActive, isTranslate, onToggleTranslate, onToggleTafsir, onCloseSheet }) => {
+const BottomSheet = ({ isOpen, isTranslate, onToggleTranslate, onToggleTafsir, onToggleAudioStatus, onCloseSheet }) => {
   return (
-    <div className={`c-sheet ${isActive ? 'active' : ''}`}>
+    <div className={`c-sheet ${isOpen ? 'active' : ''}`}>
       <div className="sheet-list">
         <span 
           onClick={onCloseSheet}
@@ -21,7 +21,7 @@ const BottomSheet = ({ isActive, isTranslate, onToggleTranslate, onToggleTafsir,
         </span>
         <span>
           <IoBookmarkOutline style={style} />
-          <a href="#">Simpan</a>
+          Simpan
         </span>
         <span 
           onClick={onToggleTafsir}
@@ -29,9 +29,11 @@ const BottomSheet = ({ isActive, isTranslate, onToggleTranslate, onToggleTafsir,
           <IoBookOutline style={style} />
           Baca tafsir
         </span>
-        <span>
+        <span
+          onClick={onToggleAudioStatus}
+        >
           <IoPlayOutline style={style} />
-          <a href="#">Dengarkan ayat</a>
+          Dengarkan ayat
         </span>
         <span
           onClick={onToggleTranslate}

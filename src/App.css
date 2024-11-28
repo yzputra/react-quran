@@ -310,3 +310,42 @@ a {
   padding: 15px;
   border-bottom: 1px solid var(--dark);
 }
+
+.c-player {
+   position: fixed;
+   bottom: 1rem;
+   width: 100%;
+   visibility: hidden
+ }
+
+ .play {
+   visibility: visible;
+ }
+
+ .player-title {
+   margin-bottom: 1rem;
+   font-size: var(--text-sm);
+ }
+
+
+ .player-content {
+  background: var(--lighter);
+   margin-inline: 1rem;
+  padding: 1rem;
+   border: 1px solid var(--dark);
+   border-radius: 7px;
+   box-shadow: 0 0 0.5rem var(--dark);
+ }
+
+ .progress-bar {
+   width: 0;
+   height: 2px;
+   background: var(--accent);
+   margin-block: 1rem;
+ }
+
+ .player-close {
+   display: block;
+   margin-left: auto;
+   width: 10px;
+ }
