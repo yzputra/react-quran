@@ -1,9 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
 import AyahListing from '../components/AyahListing';
 import BottomSheet from '../components/BottomSheet';
 import AudioPlayer from '../components/AudioPlayer';
+import useIndexScroll from '../hooks/useIndexScroll';
 
 const SurahPage = () => {
   const { data } = useLoaderData();
@@ -12,20 +13,13 @@ const SurahPage = () => {
   const [isTafsir, setIsTafsir] = useState(false);
   const [isTranslate, setIsTranslate] = useState(false);
   const [audioStatus, setAudioStatus] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(0);
   const [ayahId, setAyahId] = useState(0);
-
-  const listRef = useRef(null);
-
-  const scrollToIndex = (id) => {
-    setTimeout(() => {
-      const listNode = listRef.current;
-      const section = listNode.querySelectorAll('section')[id];
-      section.scrollIntoView({ behavior: 'smooth' });
-    }, 0);
-
-    setSelectedOption(id);
-  }
+  
+  const { 
+    value, 
+    listRef, 
+    scrollToIndex
+  } = useIndexScroll();
 
   const handleGetId = (id) => setAyahId(id);
 
@@ -84,7 +78,7 @@ const SurahPage = () => {
             <label>
               Ayat
               <select 
-                value={selectedOption}
+                value={value}
                 onChange={(e) => scrollToIndex(e.target.value)}
                 className="select"
               >
