@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
+import Select from '../components/Select';
 import AyahListing from '../components/AyahListing';
 import BottomSheet from '../components/BottomSheet';
 import AudioPlayer from '../components/AudioPlayer';
@@ -70,22 +71,11 @@ const SurahPage = () => {
             <li><Link to="/">Beranda</Link></li>
             <li>Surah</li>
           </ul>
-          <div className="c-select">
-            <label>
-              Ayat
-              <select 
-                value={value}
-                onChange={(e) => scrollToIndex(e.target.value)}
-                className="select"
-              >
-                { data.verses.map((ayah, id) => (
-                  <option key={id} value={id}>
-                    {ayah.number.inSurah}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+          <Select 
+            surah={data}
+            value={value}
+            onScrollToIndex={scrollToIndex}
+          />
         </div>
 
         { !isShowTafsir ? (
