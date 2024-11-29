@@ -11,7 +11,7 @@ const style = {
   margin: '0 15px -5px 0',
 }
 
-const BottomSheet = ({ isOpen, isTranslate, onToggleTranslate, onToggleTafsir, onToggleAudioStatus, onCloseSheet }) => {
+const BottomSheet = ({ isOpen, isShowTranslate, onToggleTranslate, onToggleTafsir, onToggleAudioStatus, onCloseSheet }) => {
   return (
     <div className={`c-sheet ${isOpen ? 'active' : ''}`}>
       <div className="sheet-list">
@@ -39,7 +39,7 @@ const BottomSheet = ({ isOpen, isTranslate, onToggleTranslate, onToggleTafsir, o
           onClick={onToggleTranslate}
         > 
           <IoLanguageOutline style={style} /> 
-          { isTranslate ?  'Tampilkan terjemah' : 'Sembunyikan terjemah' } 
+          { isShowTranslate ?  'Tampilkan terjemah' : 'Sembunyikan terjemah' } 
         </span>
       </div>
     </div>

@@ -4,7 +4,7 @@ const style = {
   fontSize: '1.5rem',
 }
 
-const AyahListing = ({ ayah, isTranslate, onGetId, onShowSheet}) => {
+const AyahListing = ({ ayah, isShowTranslate, onGetId, onShowSheet}) => {
   const ayahId = ayah.number.inSurah -1;
 
   const handleClick = () => {
@@ -26,7 +26,7 @@ const AyahListing = ({ ayah, isTranslate, onGetId, onShowSheet}) => {
             <span>{ayah.number.inSurah}</span>
           </p>
         </div>
-        { !isTranslate && (
+        { !isShowTranslate && (
           <p className="ayah-trans">
             {ayah.translation.id}
           </p>

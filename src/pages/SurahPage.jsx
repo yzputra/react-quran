@@ -10,32 +10,28 @@ const SurahPage = () => {
   const { data } = useLoaderData();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isTafsir, setIsTafsir] = useState(false);
-  const [isTranslate, setIsTranslate] = useState(false);
+  const [isShowTafsir, setIsShowTafsir] = useState(false);
+  const [isShowTranslate, setIsShowTranslate] = useState(false);
   const [audioStatus, setAudioStatus] = useState(false);
   const [ayahId, setAyahId] = useState(0);
   
-  const { 
-    value, 
-    listRef, 
-    scrollToIndex
-  } = useIndexScroll();
+  const { value, listRef, scrollToIndex } = useIndexScroll();
 
   const handleGetId = (id) => setAyahId(id);
 
   const handleSheet = () => setIsOpen(!isOpen);
 
-  const handleTranslate = () => {
-    setIsTranslate(!isTranslate);
+  const handleShowTranslate = () => {
+    setIsShowTranslate(!isShowTranslate);
     setIsOpen(false);
   }
 
-  const handleTafsir = () => {
-    if (isTafsir) {
-      setIsTafsir(false);
+  const handleShowTafsir = () => {
+    if (isShowTafsir) {
+      setIsShowTafsir(false);
       scrollToIndex(ayahId);
     } else {
-      setIsTafsir(true);
+      setIsShowTafsir(true);
       window.scrollTo(50, 100);
     }
 
@@ -92,13 +88,13 @@ const SurahPage = () => {
           </div>
         </div>
 
-        { !isTafsir ? (
+        { !isShowTafsir ? (
           <div className="c-ayah-list" ref={listRef}>
             { data.verses.map((ayah, id) => (
               <AyahListing 
                 key={id}
                 ayah={ayah} 
-                isTranslate={isTranslate}
+                isShowTranslate={isShowTranslate}
                 onGetId={handleGetId}
                 onShowSheet={handleSheet}
               />
@@ -107,7 +103,7 @@ const SurahPage = () => {
 
         ) : (
           <div className="c-ayah-tafsir">
-            <span onClick={handleTafsir}>
+            <span onClick={handleShowTafsir}>
               Close
             </span>
             <section className="content">
@@ -129,9 +125,9 @@ const SurahPage = () => {
 
       <BottomSheet 
         isOpen={isOpen} 
-        isTranslate={isTranslate}
-        onToggleTranslate={handleTranslate}
-        onToggleTafsir={handleTafsir}
+        isShowTranslate={isShowTranslate}
+        onToggleTranslate={handleShowTranslate}
+        onToggleTafsir={handleShowTafsir}
         onToggleAudioStatus={handleAudioStatus} 
         onCloseSheet={handleSheet}
       />
