@@ -1,47 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 
 import Select from '../components/Select';
 import AyahListing from '../components/AyahListing';
 import BottomSheet from '../components/BottomSheet';
 import AudioPlayer from '../components/AudioPlayer';
+
 import useIndexScroll from '../hooks/useIndexScroll';
+import useToggle from '../hooks/useToggle';
 
 const SurahPage = () => {
   const { data } = useLoaderData();
+  const { value, listRef, scrollToIndex } = useIndexScroll();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isShowTafsir, setIsShowTafsir] = useState(false);
-  const [isShowTranslate, setIsShowTranslate] = useState(false);
-  const [audioStatus, setAudioStatus] = useState(false);
+  const [isShowTafsir, toggleTafsir] = useToggle(false);
+  const [isShowTranslate, toggleTranslate] = useToggle(false);
+  const [audioStatus, toggleAudioStatus] = useToggle(false);
   const [ayahId, setAyahId] = useState(0);
-  
-  const { value, listRef, scrollToIndex } = useIndexScroll();
 
   const handleGetId = (id) => setAyahId(id);
 
-  const handleSheet = () => setIsOpen(!isOpen);
+  const handleSheet = (value) => setIsOpen(value);
 
-  const handleShowTranslate = () => {
-    setIsShowTranslate(!isShowTranslate);
-    setIsOpen(false);
-  }
-
-  const handleShowTafsir = () => {
+  const handleToggleTafsir = () => {
     if (isShowTafsir) {
-      setIsShowTafsir(false);
       scrollToIndex(ayahId);
     } else {
-      setIsShowTafsir(true);
       window.scrollTo(50, 100);
-    }
-
-    setIsOpen(false);
-  }
-
-  const handleAudioStatus = (value) => {
-    setAudioStatus(value)
-    setIsOpen(false);
+    } 
+    toggleTafsir()
   }
 
   return (
@@ -93,7 +81,7 @@ const SurahPage = () => {
 
         ) : (
           <div className="c-ayah-tafsir">
-            <span onClick={handleShowTafsir}>
+            <span onClick={handleToggleTafsir}>
               Close
             </span>
             <section className="content">
@@ -109,16 +97,16 @@ const SurahPage = () => {
           surah={data}
           ayahId={ayahId}
           audioStatus={audioStatus}
-          onToggleAudioStatus={handleAudioStatus}
+          onToggleAudioStatus={toggleAudioStatus}
         />
       }
 
       <BottomSheet 
         isOpen={isOpen} 
         isShowTranslate={isShowTranslate}
-        onToggleTranslate={handleShowTranslate}
-        onToggleTafsir={handleShowTafsir}
-        onToggleAudioStatus={handleAudioStatus} 
+        onToggleTranslate={toggleTranslate}
+        onToggleTafsir={handleToggleTafsir}
+        onToggleAudioStatus={toggleAudioStatus} 
         onCloseSheet={handleSheet}
       />
 

@@ -31,7 +31,7 @@ const AudioPlayer = ({ surah, ayahId, audioStatus, onToggleAudioStatus }) => {
   const handlePlaying = () => au.paused ? au.play() : au.pause();
   
   const handleClose = () => {
-    onToggleAudioStatus(!audioStatus)
+    onToggleAudioStatus()
     au.pause();
   }
 

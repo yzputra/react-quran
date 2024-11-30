@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { 
   IoBookmarkOutline, 
   IoBookOutline,
@@ -12,13 +13,23 @@ const style = {
 }
 
 const BottomSheet = ({ isOpen, isShowTranslate, onToggleTranslate, onToggleTafsir, onToggleAudioStatus, onCloseSheet }) => {
+  const listRef = useRef(null);
+
+  useEffect(() => {
+    const listNode  = listRef.current;
+    const listEl = listNode.querySelectorAll('span');
+
+    listEl.forEach((el) => el.addEventListener('click', () => onCloseSheet(false)))
+
+  }, []);
+
   return (
     <div className={`c-sheet ${isOpen ? 'active' : ''}`}>
-      <div className="sheet-list">
-        <span 
+      <div className="sheet-list" ref={listRef}>
+        <button 
           onClick={onCloseSheet}
           className="sheet-close">
-        </span>
+        </button>
         <span>
           <IoBookmarkOutline style={style} />
           Simpan

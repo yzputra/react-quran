@@ -9,7 +9,7 @@ const AyahListing = ({ ayah, isShowTranslate, onGetId, onShowSheet}) => {
 
   const handleClick = () => {
     onGetId(ayahId)
-    onShowSheet()
+    onShowSheet(true)
   }
 
   return (
