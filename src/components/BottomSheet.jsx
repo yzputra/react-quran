@@ -27,7 +27,7 @@ const BottomSheet = ({ isOpen, isShowTranslate, onToggleTranslate, onToggleTafsi
     <div className={`c-sheet ${isOpen ? 'active' : ''}`}>
       <div className="sheet-list" ref={listRef}>
         <button 
-          onClick={onCloseSheet}
+          onClick={() => onCloseSheet(false)}
           className="sheet-close">
         </button>
         <span>
