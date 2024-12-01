@@ -70,7 +70,7 @@ const AudioPlayer = ({ surah, ayahId, onToggleAudioStatus }) => {
         >
           <IoCloseCircleOutline style={style} />
         </span>
-        <p className="player-title">{`${surah.name.transliteration.id} (${surah.name.translation.id}) - Ayat ${ayahId +1}`}</p>
+        <p className="player-title">{`Q.S ${surah.name.transliteration.id} - Ayat ${currentIndex}`}</p>
         <div className="flex-sb">
           <span onClick={playPrev}>
             <IoPlayBackOutline style={style} />
